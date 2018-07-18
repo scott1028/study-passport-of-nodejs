@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  form(action='/login', method='post')
+    div
+      label Username:
+      input(type='text', name='username')
+      br
+    div
+      label Password:
+      input(type='password', name='password')
+    div
+      input(type='submit', value='Submit')
+    div
+      button(type='button', onclick="onClick();") Ajax Submit
+
+  script.
+    var onClick = function() {
+      // Ref: https://stackoverflow.com/questions/34558264/fetch-api-with-cookie
+      fetch('/login/', {
+        method: 'post',
+        body: 'username=123&password=777',
+        headers: new Headers({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }),
+        credentials: 'same-origin',
+      }).then(resp => console.log(resp))
+    }
